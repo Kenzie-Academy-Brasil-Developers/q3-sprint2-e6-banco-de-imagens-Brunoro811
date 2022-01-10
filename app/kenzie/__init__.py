@@ -2,11 +2,19 @@ import os
 from flask import Flask, request, send_from_directory
 
 
-from .image import get_all_paths_all_files, upload_image, check_extension_of_file, check_file_exist, get_path, download_dir_as_zip_image, check_extension_allowed_for_extension, get_files_for_path
-
+from app.kenzie.image import get_all_paths_all_files, upload_image, check_extension_of_file, check_file_exist, get_path, download_dir_as_zip_image, check_extension_allowed_for_extension, get_files_for_path
 app = Flask(__name__)
 # Observação coloquei diretamente nas configurações do flask pois no .venv não funcionou
 app.config['MAX_CONTENT_LENGTH'] = 1 * 1000 * 1000
+
+
+def create_path_assets():
+    #os.chdir("cd ../../")
+    if not os.path.isdir("assets"):
+        os.system("mkdir assets")
+
+
+create_path_assets()
 
 
 @app.get("/")
@@ -62,6 +70,7 @@ def download(file_name):
                 as_attachment=True
             ), 200
     except:
+        # raise
         return {"msg": "Não encontrado"}, 404
 
 

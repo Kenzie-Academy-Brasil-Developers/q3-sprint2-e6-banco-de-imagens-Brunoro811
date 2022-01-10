@@ -95,14 +95,14 @@ def check_extension_allowed_for_extension(extension):
 def upload_image(file):
     try:
         extension = get_extension_file(file)
-        st = os.path.isdir(f"../../assets/{extension}")
+        st = os.path.isdir(f"assets/{extension}")
         if not st:
-            os.mkdir(f"../../assets/{extension}")
+            os.mkdir(f"assets/{extension}")
         FILES_DIRECTORY = os.getenv("FILES_DIRECTORY")
 
         file_name = get_file_name_clear_of_save(file.filename)
         file.save(
-            f"../../assets/{extension}/{file_name}")
+            f"assets/{extension}/{file_name}")
 
         return {"msg": "Sucesso ao enviar arquivo!"}, 201
     except:
@@ -118,7 +118,7 @@ def download_dir_as_zip_image(file_extension, compression_ratio):
         FILES_DIRECTORY = os.getenv("FILES_DIRECTORY")
         files_for_path_list = get_files_for_path(file_extension)
         files_for_path_str = " ".join(files_for_path_list)
-        os.chdir(f"../../assets/{file_extension}")
+        os.chdir(f"assets/{file_extension}")
         os.system(
             f"zip {path_tmp} {files_for_path_str}")
         response = send_from_directory(
