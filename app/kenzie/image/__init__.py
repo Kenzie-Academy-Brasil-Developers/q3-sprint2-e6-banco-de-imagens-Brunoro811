@@ -105,7 +105,7 @@ def upload_image(file):
             f"assets/{extension}/{file_name}")
 
         return {"msg": "Sucesso ao enviar arquivo!"}, 201
-    except:
+    except Exception:
         return {"msg": "Falha ao enviar arquivo!"}, 400
 
 
@@ -125,4 +125,4 @@ def download_dir_as_zip_image(file_extension, compression_ratio):
             directory="/tmp", path="download.zip", as_attachment=True)
         return response
     except Exception:
-        raise
+        return {"msg": "Arquivo não encontrado"}, 404
